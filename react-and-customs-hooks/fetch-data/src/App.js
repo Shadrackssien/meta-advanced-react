@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+function Fetch() {
+  const [user, setUser] = useState([]);
+
+  const fetchData = () => {
+    fetch("https://randomuser.me/api/?results=1")
+      .then(response => response.json())
+      .then(data => setUser(data));
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []) 
+  return Object.keys(user).length > 0 ? (
+    <div>
+      <h1>Customer data</h1>
+      <h2>Fullname: {user.results[0].name.first} {user.results[0].name.last}</h2>
+      <img src={user.results[0].picture.large} alt=""/>
     </div>
-  );
-}
+  ) : (
+    <h1>Data Pending...</h1>
+  )
+};
 
-export default App;
+export default Fetch;
