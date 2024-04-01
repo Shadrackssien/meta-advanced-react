@@ -1,2 +1,2 @@
 # meta-advanced-react
-Better understanding of Meta
+Better understanding of React
